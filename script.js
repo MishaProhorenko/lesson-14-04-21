@@ -1,46 +1,46 @@
 'use strict'
 
-const sum = (a, b) => a + b;
-const getRandomNumber = () => {
-    Math.floor(Math.random() * 10)
-}
+// const sum = (a, b) => a + b;
+// const getRandomNumber = () => {
+//     Math.floor(Math.random() * 10)
+// }
 
-const logerDecorator = function (func, userName, funcName) {
-    let counter = 0;
-    return function () {
-        counter++
-        let result = func.call(null, ...arguments)
-        let userData = `${userName} called ${funcName} ${counter} times whith ${result}`
-        globalLog.push(userData)
-        return result
-    }
-};
+// const logerDecorator = function (func, userName, funcName) {
+//     let counter = 0;
+//     return function () {
+//         counter++
+//         let result = func.call(null, ...arguments)
+//         let userData = `${userName} called ${funcName} ${counter} times whith ${result}`
+//         globalLog.push(userData)
+//         return result
+//     }
+// };
 
-const sumForNick = logerDecorator(sum, 'Nick', 'sum')
-const sumForMike = logerDecorator(sum, 'Mike', 'sum')
-const getRandomForNick = logerDecorator(getRandomNumber, 'Nick', 'random')
-const getRandomForMike = logerDecorator(getRandomNumber, 'Mike', 'random')
+// const sumForNick = logerDecorator(sum, 'Nick', 'sum')
+// const sumForMike = logerDecorator(sum, 'Mike', 'sum')
+// const getRandomForNick = logerDecorator(getRandomNumber, 'Nick', 'random')
+// const getRandomForMike = logerDecorator(getRandomNumber, 'Mike', 'random')
 
-let globalLog = [];
-
-
-sumForMike(1, 2)
-sumForMike(10, 30)
-sumForMike(10, 30)
-
-getRandomForNick()
-
-getRandomForMike()
-sumForNick(2, 7)
-sumForNick(9, 34)
-sumForNick(9, 34)
-sumForNick(9, 34)
-console.log(getRandomForNick())
-
-console.log(getRandomForMike())
+// let globalLog = [];
 
 
-console.log(globalLog)
+// sumForMike(1, 2)
+// sumForMike(10, 30)
+// sumForMike(10, 30)
+
+// getRandomForNick()
+
+// getRandomForMike()
+// sumForNick(2, 7)
+// sumForNick(9, 34)
+// sumForNick(9, 34)
+// sumForNick(9, 34)
+// console.log(getRandomForNick())
+
+// console.log(getRandomForMike())
+
+
+// console.log(globalLog)
 
 //почему undefined??????????????????????
 
@@ -48,4 +48,44 @@ console.log(globalLog)
 
 //==================================================================
 
+
+
+const hardFunction = function (value) {
+
+    return value;
+};
+
+
+const cacheDecorator = (func) => {
+    let cache = [];
+    return function (x) {
+        if (cache.includes(x)) {
+            console.log('value taken from cache')
+            return x
+        } else {
+            cache.push(x)
+            console.log(cache)
+            console.log('new value')
+            return func.call(null, x)
+        }
+
+    }
+};
+
+
+const hardFunctionWhithCache = cacheDecorator(hardFunction)
+const newHardFunctionWhithCache = cacheDecorator(hardFunction)
+
+hardFunctionWhithCache('123')
+hardFunctionWhithCache('ggggg')
+hardFunctionWhithCache('ggggg')
+hardFunctionWhithCache(333333)
+newHardFunctionWhithCache('777')
+newHardFunctionWhithCache(9999)
+
+
+
+
+console.log(newHardFunctionWhithCache(1))
+console.log(hardFunctionWhithCache(12))
 
