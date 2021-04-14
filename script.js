@@ -35,9 +35,17 @@ sumForNick(2, 7)
 sumForNick(9, 34)
 sumForNick(9, 34)
 sumForNick(9, 34)
+console.log(getRandomForNick())
 
-getRandomForNick()
+console.log(getRandomForMike())
 
-getRandomForMike()
 
 console.log(globalLog)
+
+//почему undefined??????????????????????
+
+
+
+//==================================================================
+
+
