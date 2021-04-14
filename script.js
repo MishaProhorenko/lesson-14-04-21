@@ -52,20 +52,27 @@
 
 const hardFunction = function (value) {
 
-    return value;
+    return value * 2;
 };
 
 
 const cacheDecorator = (func) => {
     let cache = [];
     return function (x) {
-        if (cache.includes(x)) {
-            console.log('value taken from cache')
-            return x
+        const valueInCache = cache.find(item => item.arg === x)
+        if (valueInCache) {
+            console.log('from cache')
+            return valueInCache.result
         } else {
-            cache.push(x)
-            console.log(cache)
             console.log('new value')
+            const result = func.call(null, x)
+            const res = {
+                arg: x,
+                result
+            }
+            cache.push(res)
+            console.log(cache)
+
             return func.call(null, x)
         }
 
@@ -76,16 +83,14 @@ const cacheDecorator = (func) => {
 const hardFunctionWhithCache = cacheDecorator(hardFunction)
 const newHardFunctionWhithCache = cacheDecorator(hardFunction)
 
-hardFunctionWhithCache('123')
-hardFunctionWhithCache('ggggg')
-hardFunctionWhithCache('ggggg')
-hardFunctionWhithCache(333333)
-newHardFunctionWhithCache('777')
-newHardFunctionWhithCache(9999)
 
-
-
-
-console.log(newHardFunctionWhithCache(1))
-console.log(hardFunctionWhithCache(12))
+console.log(hardFunctionWhithCache(100))
+console.log(hardFunctionWhithCache(100))
+// console.log(hardFunctionWhithCache(33))
+// console.log(hardFunctionWhithCache(22))
+// console.log(newHardFunctionWhithCache(12))
+// console.log(newHardFunctionWhithCache(11))
+// console.log(newHardFunctionWhithCache(10))
+// console.log(newHardFunctionWhithCache(1))
+// console.log(hardFunctionWhithCache(12))
 
